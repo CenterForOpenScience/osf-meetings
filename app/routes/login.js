@@ -20,7 +20,7 @@ export default Ember.Route.extend({
 		var code = this.$_GET('code');
 		var self = this;
 		if (code == '') {
-			window.location="https://staging-accounts.osf.io/oauth2/authorize?scope=osf.full_read+osf.full_write&redirect_uri=http%3A%2F%2Flocalhost%3A4200%2Flogin&response_type=code&client_id=d5c46638ed1d42b9977264d084875c5a";
+			window.location="https://test-accounts.osf.io/oauth2/authorize?scope=osf.full_read+osf.full_write&redirect_uri=http%3A%2F%2Flocalhost%3A4200%2Flogin&response_type=code&client_id=daa66c0ca55744cea4600e464fe521ac";
 		} else {
 			Ember.$.ajax({
 				url: "http://localhost:8000/login?code=" + code,
@@ -29,7 +29,7 @@ export default Ember.Route.extend({
 				dataType: 'json',
 				contentType: 'text/plain',
 				xhrFields: {
-					withCredentials: false,
+					withCredentials: true,
 				}
 			}).then(function() {
 				self.transitionTo('index');
