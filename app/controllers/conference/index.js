@@ -97,6 +97,12 @@ export default Ember.Controller.extend(EmberValidations, {
 			} else {
 				this.set('displayErrors',true);
 			}
+		},
+		permissionTest() {
+			 Ember.$.ajax({
+		 	 	url : "http://localhost:8000/conferences/",
+                type : "DELETE"
+			 });
 		}
 	}
 });
