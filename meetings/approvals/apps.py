@@ -3,8 +3,8 @@ from __future__ import unicode_literals
 from django.apps import AppConfig
 
 
-class ConferenceAppConfig(AppConfig):
-    name = 'conferences'
+class ApprovalsConfig(AppConfig):
+    name = 'approvals'
 
     def ready(self):
-        import conferences.signals
+        import approvals.signals
