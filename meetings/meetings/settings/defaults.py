@@ -48,9 +48,9 @@ INSTALLED_APPS = [
     'rest_framework_json_api',
     'oauth2_provider',
     'api',
-    'approvals',
     'conferences',
     'submissions',
+    'approvals',
     'autofixture',
     'osf_oauth2_adapter',
 ]
@@ -73,6 +73,7 @@ REST_FRAMEWORK = {
 }
 
 JSON_API_FORMAT_KEYS = 'dasherize'
+#JSON_API_PLURALIZE_TYPES = True
 
 MIDDLEWARE_CLASSES = [
     'django.middleware.security.SecurityMiddleware',
@@ -173,6 +174,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 SITE_ID = 1
+SOCIALACCOUNT_ADAPTER = 'osf_oauth2_adapter.views.OSFOAuth2Adapter'
 
 # Where users are redirected after login
 LOGIN_REDIRECT_URL = 'http://localhost:4200'

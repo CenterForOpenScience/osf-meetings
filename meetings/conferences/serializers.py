@@ -2,9 +2,7 @@ from rest_framework_json_api import serializers
 from rest_framework.reverse import reverse
 
 from conferences.models import Conference
-from submissions.models import Submission
 from django.contrib.auth.models import User
-
 
 class ConferenceSerializer(serializers.ModelSerializer):
     links = serializers.SerializerMethodField()

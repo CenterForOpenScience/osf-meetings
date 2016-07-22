@@ -1,12 +1,12 @@
+from django.contrib.auth.models import Group, User
+from osf_oauth2_adapter.apps import OsfOauth2AdapterConfig
 from django.dispatch import receiver
 from submissions.models import Submission
 from django.db.models.signals import post_save
+from guardian.shortcuts import assign_perm, remove_perm
 from submissions import permissions as perm
-from approvals.permissions import (
-    add_approval_permissions_to_submission_contributor,
-    add_approval_permissions_to_conference_admin
-)
-
+from approvals.permissions import (add_approval_permissions_to_submission_contributor,
+                                   add_approval_permissions_to_conference_admin)
 
 @receiver(post_save, sender=Submission)
 def add_permissions_on_submission_save(sender, **kwargs):
@@ -48,8 +48,6 @@ def add_permissions_on_submission_save(sender, **kwargs):
             submission, submission_contributor)
         add_approval_permissions_to_submission_contributor(
             approval, submission_contributor)
-
-        # conference_admin:
         perm.add_submission_permissions_to_conference_admin(
             submission, conference_admin)
         add_approval_permissions_to_conference_admin(

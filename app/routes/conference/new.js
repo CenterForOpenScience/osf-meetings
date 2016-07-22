@@ -7,8 +7,12 @@ export default Ember.Route.extend(CheckLoginMixin, {
     model() {
         return Ember.RSVP.hash({
             meta : Ember.$.ajax({
-                url : config.meetingsUrl + "/conferences/",
-                type : "OPTIONS"
+                url : "http://localhost:8000/conferences/",
+                type : "OPTIONS",
+                xhrFields : {
+                    withCredentials : true
+                },
+                crossDomain : true
             }),
             newConf : this.store.createRecord('conference')
         });
@@ -25,7 +29,7 @@ export default Ember.Route.extend(CheckLoginMixin, {
                 newRoute.controller.set('visited', true);
             });
         },
-        saveNode(newConf) {
+        saveConference(newConf) {
             var router = this;
             newConf.save().then(function(params) {
                 router.transitionTo('conference.index', params.id);
