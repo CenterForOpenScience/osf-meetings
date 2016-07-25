@@ -47,7 +47,10 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'rest_framework_json_api',
     'oauth2_provider',
+    'anymail',
+    'django_inbound_email',
     'api',
+    'mail',
     'approvals',
     'conferences',
     'submissions',
@@ -185,3 +188,23 @@ ACCOUNT_LOGOUT_REDIRECT_URL = 'http://localhost:4200'
 
 CLIENT_ID = ''
 CLIENT_SECRET = ''
+
+# https://github.com/anymail/django-anymail
+EMAIL_BACKEND = "anymail.backends.mailgun.MailgunBackend"
+
+# https://github.com/yunojuno/django-inbound-email
+# the fully-qualified path to the provider's backend parser
+INBOUND_EMAIL_PARSER = 'django_inbound_email.backends.mailgun.MailgunRequestParser'
+
+# if True (default=False) then log the contents of each inbound request
+INBOUND_EMAIL_LOG_REQUESTS = True
+
+# if True (default=True) then always return HTTP status of 200 (may be
+# required by provider)
+INBOUND_EMAIL_RESPONSE_200 = True
+
+# Needs to be completed in local.py
+MAILGUN_API_KEY = ''
+ANYMAIL = {
+    "MAILGUN_API_KEY": MAILGUN_API_KEY,
+}

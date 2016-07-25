@@ -3,8 +3,12 @@
 
 SECRET_KEY = ''  # Set to large random value in your local.py
 DEBUG = True
-CLIENT_ID = ''
+# OAUTH developer app
+CLIENT_ID = ''  # needs to be completed in local.py
 CLIENT_SECRET = ''
+# Mailgun
+MAILGUN_API_KEY = ''  # needs to be completed in local.py
+# to send emails
 
 OSF_API_URL = ('https://staging-api.osf.io').rstrip('/') + '/'
 OSF_ACCOUNTS_URL = ('https://staging-accounts.osf.io').rstrip('/') + '/'
