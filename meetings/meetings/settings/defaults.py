@@ -48,6 +48,8 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'rest_framework_json_api',
     'oauth2_provider',
+    'haystack',
+    'autofixture',
     'api',
     'approvals',
     'conferences',
@@ -154,6 +156,15 @@ CORS_ALLOW_CREDENTIALS = True
 CORS_ORIGIN_WHITELIST = (
     'localhost:4200',
 )
+
+#Haystack settings 
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'haystack.backends.elasticsearch_backend.ElasticsearchSearchEngine',
+        'URL': 'http://127.0.0.1:9200/',
+        'INDEX_NAME': 'haystack',
+    },
+}
 
 
 # Internationalization
