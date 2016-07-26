@@ -6,6 +6,8 @@ from submissions.models import Submission
 from approvals.models import Approval
 from django.contrib.auth.models import User
 
+import httplib
+
 
 class SubmissionSerializer(ser.ModelSerializer):
     links = ser.SerializerMethodField()
@@ -15,6 +17,8 @@ class SubmissionSerializer(ser.ModelSerializer):
         queryset=User.objects.all(), required=False, allow_null=True)
     approval = ResourceRelatedField(
         queryset=Approval.objects.all(), required=False, allow_null=True)
+    download_count = ser.SerializerMethodField()
+
 
     class Meta:
         model = Submission
@@ -41,3 +45,12 @@ class SubmissionSerializer(ser.ModelSerializer):
         request = self.context.get('request')
         user = request.user
         return (user == obj.contributor or user == obj.conference.admin)
+
+    def get_download_count(self, obj):
+        conn = httplib.HTTPConnection("api.osf.io")
+        #file_id = Submission.objects.filter() <-- Edit this to find the actual fileid
+        conn.request("HEAD","/v2/files/") #not done needs to be vs/files/{fileid}
+        res = conn.getresponse()
+        # figure out response format and return download count
+        return 25 # hardcoded placeholder
+

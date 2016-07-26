@@ -10,6 +10,7 @@ class Submission(models.Model):
     title = models.CharField(max_length=100)
     contributor = models.ForeignKey(User, related_name='submission_contributor')
     description = models.TextField()
+    # category = models.TextField()  
     conference = models.ForeignKey(Conference, on_delete=models.CASCADE)
     approval = models.OneToOneField('approvals.Approval')
 

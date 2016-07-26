@@ -7,5 +7,13 @@ export default Ember.Route.extend({
             conf : this.store.find('conference', params.conference_id),
             submissions : this.store.findAll('submission')
         });
-    }
+    },
+    actions: {
+    	download(uri) {
+		  var link = document.createElement("a");
+		  link.download = '';
+		  link.href = uri;
+		  link.click();
+		}
+	}
 });
