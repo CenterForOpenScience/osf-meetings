@@ -1,6 +1,8 @@
 from django.conf.urls import url, include
 from api import views as apiViews
 from django.contrib import admin
+from django.conf.urls.static import static
+from django.conf import settings
 
 # Wire up our API using automatic URL routing.
 
@@ -18,4 +20,4 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls, name='admin'),
     url(r'^accounts/', include('allauth.urls')),
     url(r'^mail/inbound/', include('mail.urls')),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
