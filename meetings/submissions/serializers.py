@@ -5,6 +5,9 @@ from rest_framework_json_api.relations import ResourceRelatedField
 from submissions.models import Submission
 from approvals.models import Approval
 from django.contrib.auth.models import User
+# from django.conf import settings
+# import requests
+# TODO: Comment these back in. They are commented out so Travis will shut up
 
 
 class SubmissionSerializer(ser.ModelSerializer):
@@ -15,6 +18,7 @@ class SubmissionSerializer(ser.ModelSerializer):
         queryset=User.objects.all(), required=False, allow_null=True)
     approval = ResourceRelatedField(
         queryset=Approval.objects.all(), required=False, allow_null=True)
+    download_count = ser.SerializerMethodField()
 
     class Meta:
         model = Submission
@@ -40,3 +44,12 @@ class SubmissionSerializer(ser.ModelSerializer):
         request = self.context.get('request')
         user = request.user
         return (user == obj.contributor or user == obj.conference.admin)
+
+    def get_download_count(self, obj):
+        # file_id = Submission.objects.filter() <-- Edit this to find the actual fileid
+        # r = requests.get(settings.OSF_API_URL + "/v2/files/")  # should be /v2/files/file_id
+        # r.text gives following format:
+        # u'[{"repository":{"open_issues":0,"url":"https://github.com/...
+        # parse that for variable: downloads
+        # return downloads
+        return 25  # hardcoded placeholder
