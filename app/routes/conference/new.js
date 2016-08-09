@@ -27,6 +27,9 @@ export default Ember.Route.extend({
             newConf.save().then(function(params) {
                 router.transitionTo('conference.index', params.id);
             });
+        },
+        setLogoUrl(value){
+            this.currentModel.newConf.set('logo', value);
         }
     }
 });
