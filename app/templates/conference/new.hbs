@@ -7,42 +7,32 @@
                     <div class="form-group row fade-background">
                         <div class="section-header">IDENTIFY</div>
                         <hr>
-                        <div class="col-lg-6">
-                            <label for="city" >Conference Identifier</label>
-                            {{input value=model.newConf.id class="form-control form-spacing" placeholder="Conference Indentifier"}}
-                        </div>
-                        <div class="col-lg-6 {{"has-success"}}" id="titleScroll">
+                        <div class="col-lg-6" id="titleScroll">
                             <label for="title">Title</label>
-                            {{input value=model.newConf.title class="form-control" placeholder="Conference Title" id="title"}}
+                            {{validator-input tagType='input' type='text'
+                                 model=model.newConf valuePath='title' placeholder='Title'}}
                             <br>
-                            {{#if this.displayErrors}}
-                                {{#each errors.model.newConf.title as |error|}}
-                                    <div class="alert alert-danger" role="alert">{{error}}</div>
-                                {{/each}}
-                            {{/if}}
                             <label for="website">Website</label>
-                            {{input value=model.newConf.site class="form-control form-spacing" placeholder="Conference Website" id="website"}}
+                            {{input type='text' value=model.newConf.site class="form-control form-spacing" placeholder="Conference Website" id="website"}}
 
                             <label for="city">Logo</label>
                             {{input type="file" accept="image/*" id="image"}}
 
                             <label for="description"  id="descriptionScroll">
                                 Description:</label>
-                            {{textarea value=model.newConf.description class="form-control resize" id="description"}}
-                            <!-- {{#if this.displayErrors}}
-                                    {{#each errors.model.newConf.description as |error|}}
-                                        <br><div class="alert alert-danger" role="alert">{{error}}</div>
-                                    {{/each}}
-                                {{/if}} -->
+                             {{validator-input tagType='textarea' model=model.newConf
+                                 valuePath='description' placeholder='Description'}}
+                        </div>
+                        <div class="col-lg-6">
+                            <label for="city" >Conference Identifier</label>
+                            {{input value=model.newConf.id class="form-control form-spacing" placeholder="Conference Identifier"}}
                         </div>
                     </div>
-
-
                     <div class="form-group row fade-background">
                         <div class="section-header">LOCATE</div>
                         <hr>
                         <div class="col-lg-6">
-                            <div class ="{{"has-success"}}">
+                            <div>
                                 <label for="country" id="countryScroll">
                                     Country
                                 </label>
@@ -56,32 +46,18 @@
                                         </option>
                                     {{/each}}
                                 </select>
-                                <!-- {{#if this.displayErrors}}
-                                        {{#each errors.model.newConf.country as |error|}}
-                                            <br><div class="alert alert-danger" role="alert">{{error}}</div>
-                                        {{/each}}
-                                    {{/if}} -->
                             </div>
-
-                            <div class="{{"has-success"}}">
+                            <div>
                                 <label for="state" id="stateScroll">
                                     State
                                 </label>
-                                {{input value=model.newConf.state class="form-control" id="state" placeholder="State"}}
-                                <!-- {{#if this.displayErrors}}
-                                        {{#each errors.model.newConf.state as |error|}}
-                                            <br><div class="alert alert-danger" role="alert">{{error}}</div>
-                                        {{/each}}
-                                    {{/if}} -->
+                                {{validator-input tagType='input' model=model.newConf
+                                    valuePath='state' placeholder='State'}}
                             </div>
-                            <div class="{{"has-success"}}">
+                            <div>
                                 <label for="city" id="cityScroll">City</label>
-                                {{input value=model.newConf.city class="form-control" id="city" placeholder="City"}}
-                                <!-- {{#if this.displayErrors}}
-                                        {{#each errors.model.newConf.city as |error|}}
-                                            <br><div class="alert alert-danger" role="alert">{{error}}</div>
-                                        {{/each}}
-                                    {{/if}} -->
+                                {{validator-input tagType='input' model=model.newConf
+                                    valuePath='city' placeholder='City'}}
                             </div>
 
 
