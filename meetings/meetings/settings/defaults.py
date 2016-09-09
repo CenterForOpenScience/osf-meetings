@@ -20,6 +20,12 @@ MEDIA_ROOT = 'files/'
 STATIC_ROOT = ''
 STATIC_URL = '/static/'
 
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    # other finders..
+    'compressor.finders.CompressorFinder',
+)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.9/howto/deployment/checklist/
@@ -63,6 +69,8 @@ INSTALLED_APPS = [
     'autofixture',
     'rest_framework_swagger',
     'rest_framework_docs',
+    'compressor',
+    'bootstrap3',
 ]
 
 REST_FRAMEWORK = {
@@ -119,6 +127,8 @@ TEMPLATES = [
         },
     },
 ]
+
+COMPRESS_PRECOMPILERS = (('text/scss', 'sass --scss {infile} {outfile}'),)
 
 WSGI_APPLICATION = 'meetings.wsgi.application'
 

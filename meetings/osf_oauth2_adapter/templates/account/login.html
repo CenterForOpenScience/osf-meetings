@@ -1,26 +1,40 @@
 {% load i18n %}
 {% load account socialaccount %}
+{% load compress %}
+{% load staticfiles %}
+{# Load the tag library #}
+{% load bootstrap3 %}
+
+{# Load CSS and JavaScript #}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
+{% compress css %}
+    <link rel="stylesheet" type="text/scss" href="{% static 'app.scss' %}" />
+{% endcompress %}
 
 {% block content %}
+<div class="container-fluid osf-light-background" style="margin-top: 0;">
+	<div class="row">
+		<div class="col-md-4 col-md-offset-4 fade-background" style="position: absolute; top: 50%; transform: translateY(-50%); margin-top: 0;">
+			<h2 style="font-weight: light; margin-top: 0;">{% trans "Sign In" %}</h2>
+			{% get_providers as socialaccount_providers %}
 
-<h1>{% trans "Sign In" %}</h1>
+		{% if socialaccount_providers %}
+		<h6>{% blocktrans with site.name as site_name %}Please sign in with the
+		Open Science Framework
+		{% endblocktrans %}</h6>
+		<a href="/accounts/osf/login/?process=login" class="btn btn-success">Sign in with OSF</a>
 
-{% get_providers as socialaccount_providers %}
-
-{% if socialaccount_providers %}
-<p>{% blocktrans with site.name as site_name %}Please sign in with the
-Open Science Framework
-{% endblocktrans %}</p>
-
-<div class="socialaccount_ballot">
-
-  <ul class="socialaccount_providers">
-    {% include "socialaccount/snippets/provider_list.html" with process="login" %}
-  </ul>
+		{% include "socialaccount/snippets/login_extra.html" %}
+		{% endif %}
+		</div>
+	</div>
 </div>
 
-{% include "socialaccount/snippets/login_extra.html" %}
 
-{% endif %}
+
+
+
 
 {% endblock %}
