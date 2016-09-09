@@ -27,10 +27,10 @@ class CurrentUserView(APIView):
                 }
             )
 
-            data = json.loads(extra_data._content)['data']
-            data['id'] = request.user.id
-            data['osf-id'] = curUser
-            data['attributes']['token'] = str(token)
+            data = json.loads(extra_data._content)
+            data['data']['id'] = request.user.id
+            data['data']['osf-id'] = curUser
+            data['data']['attributes']['token'] = str(token)
 
             return Response(data)
         return Response(
