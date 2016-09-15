@@ -5,15 +5,24 @@ export default Ember.Component.extend({
     file : null,
     url: null,
     dropzoneOptions : {
+        addRemoveLinks : true,
         uploadMultiple : false,
         xhrFields : { withCredentials : true },
         crossDomain : true
     },
     resolve : null,
     dropZone : null,
+    fullPreview: null,
     actions : {
         preUpload() {
             var drop = arguments[1];
+            var createThumbnailFromUrl = drop.createThumbnailFromUrl;
+            var _this = this;
+            drop.createThumbnailFromUrl = function(file, imageUrl, callback, crossOrigin){
+                var fullPreview = createThumbnailFromUrl.apply(this, arguments);
+                _this.set("fullPreview", fullPreview);
+                return fullPreview;
+            }
             this.set('dropZone', drop);
             this.sendAction('preUpload', drop);
             return new Ember.RSVP.Promise(resolve => {
@@ -33,6 +42,10 @@ export default Ember.Component.extend({
                     _send.call(xhr, form);
                 }
             };
+        },
+        removedfile(_this, dropZone, file){
+            this.set('resolve', null);
+            this.sendAction('afterRemovedFile');
         },
         success(_this, dropZone, file, successData) {
             this.sendAction('success', dropZone, file, successData);

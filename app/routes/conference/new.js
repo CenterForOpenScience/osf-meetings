@@ -3,7 +3,6 @@ import config from 'ember-get-config';
 
 
 export default Ember.Route.extend({
-
     model() {
         return Ember.RSVP.hash({
                 meta : Ember.$.ajax({
@@ -14,11 +13,17 @@ export default Ember.Route.extend({
                 },
                 crossDomain : true
             }),
-            newConf : this.store.createRecord('conference')
+            newConf : this.store.createRecord('conference'),
+            previewUpload : this.store.createRecord('upload')
         });
     },
 
     actions: {
+        preview(conference, fullPreview, previewUpload){
+            previewUpload.set('file', fullPreview);
+            conference.set('logo', previewUpload);
+            conference.set('preview', true);
+        },
         back() {
             this.transitionTo('index').then(function(newRoute) {
                 newRoute.controller.set('visited', true);
@@ -26,6 +31,7 @@ export default Ember.Route.extend({
         },
         saveConference(newConference, drop, resolve) {
             var router = this;
+            newConference.set('logo', null);
             newConference.save().then((conf) => {
                 if(resolve){
                     this.toast.info('Uploading file...', '', {
@@ -70,6 +76,9 @@ export default Ember.Route.extend({
                 };
                 this.options.withCredentials = true;
             });
+        },
+        afterRemovedFile(){
+            this.currentModel.newConf.set('logo', null);
         }
     } 
 });
